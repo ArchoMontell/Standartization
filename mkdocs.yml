@@ -1,0 +1,19 @@
+site_name: Project Documentation
+site_description: Documentation as Code for REST API project
+theme:
+  name: material
+
+nav:
+  - Home: README.md
+  - Overview: overview.md
+  - Architecture:
+      - SSD: architecture/SSD.md
+      - SDD: architecture/SDD.md
+      - ISD: architecture/ISD.md
+  - Quality:
+      - Test Strategy: quality/test-strategy.md
+      - Traceability Matrix: quality/traceability-matrix.md
+  - Governance:
+      - Documentation Classification: governance/documentation-classification.md
+      - Single Source of Truth: governance/single-source-of-truth.md
+      - Versioning Policy: governance/versioning.md

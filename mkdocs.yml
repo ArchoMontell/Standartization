@@ -17,3 +17,6 @@ nav:
       - Documentation Classification: governance/documentation-classification.md
       - Single Source of Truth: governance/single-source-of-truth.md
       - Versioning Policy: governance/versioning.md
+  - Review Questions:
+      - Laboratory 7: lab7.md
+      - Laboratory 8: lab8.md

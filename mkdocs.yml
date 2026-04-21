@@ -1,5 +1,6 @@
 site_name: Project Documentation
 site_description: Documentation as Code for REST API project
+dev_addr: 127.0.0.1:8001
 theme:
   name: material
 

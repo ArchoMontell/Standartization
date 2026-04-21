@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: API Системи Бронювання Квитків
+  description: REST API сервіс для керування рейсами та створенням бронювань.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Локальний сервер
+paths:
+  /flights:
+    get:
+      summary: Отримати список доступних рейсів
+      description: Повертає список рейсів за заданими критеріями пошуку або всі доступні рейси.
+      parameters:
+        - name: destination
+          in: query
+          description: Місце призначення
+          required: false
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Дата вильоту в форматі YYYY-MM-DD
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успішний запит. Список рейсів.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+  /bookings:
+    post:
+      summary: Створити нове бронювання
+      description: Обробляє запит на створення бронювання квитка для конкретного рейсу.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: Бронювання успішно створено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+        '400':
+          description: Невірні параметри запиту
+  /bookings/{id}:
+    get:
+      summary: Отримати інформацію про бронювання
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID бронювання
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Знайдено бронювання
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+        '404':
+          description: Бронювання не знайдено
+components:
+  schemas:
+    Flight:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "FL123"
+        destination:
+          type: string
+          example: "Лондон"
+        departureTime:
+          type: string
+          example: "2024-12-01T10:00:00Z"
+        price:
+          type: number
+          example: 150.00
+    BookingRequest:
+      type: object
+      required:
+        - flightId
+        - passengerName
+      properties:
+        flightId:
+          type: string
+          example: "FL123"
+        passengerName:
+          type: string
+          example: "Петро Петренко"
+    BookingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "BK999888"
+        flightId:
+          type: string
+          example: "FL123"
+        status:
+          type: string
+          example: "CONFIRMED"
+        totalPrice:
+          type: number
+          example: 150.00
